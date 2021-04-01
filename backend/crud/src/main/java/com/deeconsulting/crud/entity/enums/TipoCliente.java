@@ -1,8 +1,5 @@
-package com.deeconsulting.crud.enums;
+package com.deeconsulting.crud.entity.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum TipoCliente {
 
 	PESSOA_FISICA(1, "Pessoa Física"),
@@ -30,4 +27,17 @@ public enum TipoCliente {
 		
 		throw new IllegalArgumentException("Id inválido: " + codigo);
 	}
+
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	
+	
 }

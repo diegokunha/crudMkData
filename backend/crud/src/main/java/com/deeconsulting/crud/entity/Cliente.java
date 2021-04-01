@@ -11,47 +11,77 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-import com.deeconsulting.crud.enums.TipoCliente;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.deeconsulting.crud.entity.enums.TipoCliente;
 
 @Entity
-@Table(name = "cliente")
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
-public class Cliente implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Cliente implements Serializable{
 
-	private static final long serialVersionUID = -7882556046451557730L;
-
+	private static final long serialVersionUID = 4601871529813801129L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idCliente;
 	private String nome;
 	private Integer tipo;
-	private String cpfOuCnpj;
-	private String rgOuIe;
-	private Date dataCadastro;
+	private Date dataCriacao;
 	private Boolean ativo;
-
+	
 	@ElementCollection
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
-
+	
 	public Cliente() {}
 	
-	public Cliente(String nome, String cpfOuCnpj, String rgOuIe, TipoCliente tipo) {
+	public Cliente(String nome, Date dataCriacao, Boolean ativo, Integer tipo) {
 		super();
 		this.nome = nome;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.rgOuIe = rgOuIe;
-		this.tipo = (tipo == null) ? null : tipo.getCodigo();
+		this.dataCriacao = dataCriacao;
+		this.ativo = ativo;
+		this.tipo = tipo;
+	}
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 
 	public TipoCliente getTipo() {
@@ -61,5 +91,5 @@ public class Cliente implements Serializable {
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCodigo();
 	}
-
+	
 }
