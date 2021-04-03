@@ -1,0 +1,100 @@
+<div [ngClass]="classCss" role="alert" *ngIf="message">
+  <strong>{{ message.text }}</strong>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Lista de Clientes</h3>
+        <div [ngClass]="classCss" role="alert" *ngIf="message">
+          <strong>{{ message.text }}</strong>
+        </div>
+        <div class="box-tools">
+          <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF/CNPJ</th>
+            <th>RG/IE</th>
+            <th>Contatos</th>
+            <th>Data Criação</th>
+            <th>Situação</th>
+            <th>Ações</th>
+          </tr>
+
+          <tr *ngFor="let cliente of clientes">
+            <td>{{cliente.idCliente}}</td>
+            <td>{{cliente.nome}}</td>
+            <td>
+              <div *ngIf="cliente.cnpj == null">
+                {{cliente.cpf}}
+              </div>
+              <div *ngIf="cliente.cpf == null">
+                {{cliente.cnpj}}
+              </div>                
+          </td>
+            <td>
+              <div *ngIf="cliente.ie == null">
+                {{cliente.rg}}
+              </div>
+              <div *ngIf="cliente.rg == null">
+                {{cliente.ie}}
+              </div>
+            </td>
+            <td>{{cliente.telefones}}</td>
+            <td>{{cliente.dataCriacao | date:"dd/MM/yyyy HH:mm:ss"}}</td>              
+            <td>
+              <div *ngIf="cliente.ativo == true">
+                <span class="badge bg-light-blue">Ativo</span>
+              </div>
+              <div *ngIf="cliente.ativo == false">
+                <span class="badge bg-red">Inativo</span>
+              </div>                
+            </td>
+            <td>
+              <div>
+                <button type="button" class="btn btn-success btn-flat" title="Visualizar" routerLink="/detail/{{cliente.idCliente}}">
+                  <i class="fa fa-eye"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-flat" title="Editar" routerLink="/edit/{{cliente.idCliente}}">
+                  <i class="fa fa-pencil-square"></i>
+                </button>
+                <button type="button" class="btn btn-danger btn-flat" title="Excluir" data-toggle="modal" data-target="#modal-default">
+                  <i class="fa fa-close"></i>
+                </button>
+              </div>              
+            </td>
+            <div class="modal fade" id="modal-default">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Exclusão de Clientes</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Confirma a exclusão do cliente selecionado?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(cliente.idCliente)" data-dismiss="modal">Confirmar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
