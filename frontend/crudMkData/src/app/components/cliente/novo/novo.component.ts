@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../../model/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
 
@@ -26,13 +26,28 @@ export class NovoComponent implements OnInit {
   telefones=[];
   message : {};
   classCss : {}; 
+  cliente: Cliente = null;
 
   constructor(
     private clienteService: ClienteService,
+    private activeRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit() {
+    
+  }
+
+  findById(id:number){
+    this.clienteService.detailId(id).subscribe(
+      data => {
+        this.cliente = data;
+      }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err.error.message
+      });
+    });
   }
 
   onCreate(): void{

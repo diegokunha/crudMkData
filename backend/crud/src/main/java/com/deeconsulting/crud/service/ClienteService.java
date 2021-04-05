@@ -36,7 +36,7 @@ public class ClienteService {
 		return repository.findById(id);
 	}
 	
-	public Optional<Cliente> getByNome(String nome){
+	public List<Cliente> getByNome(String nome){
         return repository.findByNomeContainingKeywordAnywhere(nome);
     }
 	
@@ -48,7 +48,7 @@ public class ClienteService {
         return jRepository.findByCnpj(cnpj);
     }
 	
-	public Optional<Cliente> getByAtivo(boolean ativo){
+	public List<Cliente> getByAtivo(boolean ativo){
         return repository.findByAtivo(ativo);
     }
 	

@@ -1,5 +1,6 @@
 package com.deeconsulting.crud.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,9 +13,9 @@ import com.deeconsulting.crud.entity.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	@Query("select c from Cliente c where c.nome LIKE %?1%")
-	Optional<Cliente> findByNomeContainingKeywordAnywhere(String nome);
+	List<Cliente> findByNomeContainingKeywordAnywhere(String nome);
 	
-	Optional<Cliente> findByAtivo(boolean ativo);
+	List<Cliente> findByAtivo(boolean ativo);
 	
 	boolean existsByNome(String nome);
 	

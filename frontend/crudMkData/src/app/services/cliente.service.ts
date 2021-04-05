@@ -13,12 +13,16 @@ export class ClienteService {
     return this.http.get<Cliente[]>(`${CLIENTE_API}lista`);
   }
     
-  public detailName(nome:string): Observable<Cliente>{
-    return this.http.get<Cliente>(`${CLIENTE_API}detailNome/${nome}`);
+  public detailId(id:number): Observable<Cliente>{
+    return this.http.get<Cliente>(`${CLIENTE_API}detailId/${id}`);
+  }
+    
+  public detailName(nome:string): Observable<Cliente[]>{
+    return this.http.get<Cliente[]>(`${CLIENTE_API}detailNome/${nome}`);
   }
 
-  public detailAtivo(ativo:boolean): Observable<Cliente>{
-    return this.http.get<Cliente>(`${CLIENTE_API}detailAtivo/${ativo}`);
+  public detailAtivo(ativo:boolean): Observable<Cliente[]>{
+    return this.http.get<Cliente[]>(`${CLIENTE_API}detailAtivo/${ativo}`);
   }
 
   public create(cliente:Cliente): Observable<any>{

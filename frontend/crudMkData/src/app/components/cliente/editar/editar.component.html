@@ -1,3 +1,118 @@
-<p>
-  editar works!
-</p>
+<section class="content" >
+  <div style="margin: 0 auto; width: 60%;">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Editar Cliente</h3>
+      </div>
+      <form role="form" #form="ngForm" (ngSubmit)="onUpdate()" novalidate id="form">
+        <div [ngClass]="classCss" role="alert" *ngIf="message">
+          <strong>{{ message.text }}</strong>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="control-label col-md-6" *ngFor="let radio of radios">
+                <input type="radio" [(ngModel)]="cliente.ativo" [name]="radio.name" [value]="radio.value">
+                {{ radio.label }}
+              </label>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="control-label col-md-8" *ngFor="let tipo of tipos">
+                <input type="radio" [(ngModel)]="cliente.tipo" [name]="tipo.name" [value]="tipo.value">
+                {{ tipo.label }}
+              </label>
+            </div>
+          </div>
+          <div class="row" *ngIf="cliente.tipo == 1">
+            <div class="form-group col-md-6" [ngClass]="getFormGroupClass(cpf.invalid,cpf.dirty)">
+              <label for="inputCpf">CPF</label>
+              <input type="text" 
+                    [(ngModel)]="cliente.cpf"
+                    #cpf="ngModel"
+                    class="form-control" 
+                    id="inputCpf" 
+                    name="cpf" 
+                    placeholder="CPF" 
+                    required>
+                    <span class="help-block" *ngIf="cpf.invalid && cpf.dirty">CPF é requerido</span>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputRg">RG</label>
+              <input type="text" 
+                    [(ngModel)]="cliente.rg"
+                    #rg="ngModel"
+                    class="form-control" 
+                    id="inputRg" 
+                    name="rg" 
+                    placeholder="RG">
+            </div>
+          </div>
+          <div class="row" *ngIf="cliente.tipo == 2">
+            <div class="form-group col-md-6" [ngClass]="getFormGroupClass(cnpj.invalid,cnpj.dirty)">
+              <label for="inputCnpj">CNPJ</label>
+              <input type="text" 
+                    [(ngModel)]="cliente.cnpj"
+                    #cnpj="ngModel"
+                    class="form-control" 
+                    id="inputCnpj" 
+                    name="cnpj" 
+                    placeholder="CNPJ" 
+                    required>
+                    <span class="help-block" *ngIf="cnpj.invalid && cnpj.dirty">CNPJ é requerido</span>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputIe">IE</label>
+              <input type="text" 
+                    [(ngModel)]="cliente.ie"
+                    #rg="ngModel"
+                    class="form-control" 
+                    id="inputIe" 
+                    name="ie" 
+                    placeholder="IE">
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="getFormGroupClass(nome.invalid,nome.dirty)">
+            <label for="inputNome">Nome</label>
+            <input type="text" 
+                   [(ngModel)]="cliente.nome"
+                   #nome="ngModel"
+                   class="form-control" 
+                   id="inputNome" 
+                   name="nome" 
+                   placeholder="Nome" 
+                   required>
+                   <span class="help-block" *ngIf="nome.invalid && nome.dirty">Nome é requerido</span>
+          </div>
+          <div class="form-group chip">
+            <label for="inputTelefone">Telefones</label>
+            <input type="text" 
+                   [(ngModel)]="cliente.telefones"
+                   #telefone="ngModel"
+                   class="form-control" 
+                   id="inputTelefone" 
+                   name="telefones" 
+                   placeholder="Telefones">                   
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-default pull-left" [routerLink]="['/lista']">
+              <i class="fa fa-arrow-left"></i>
+              Voltar
+            </button>
+            <button type="submit" [disabled]="!form.valid" class="btn btn-primary pull-right">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  $(document).ready(function() {
+    $('form#form').bind("keypress", function(e) {
+        if ((e.keyCode == 10)||(e.keyCode == 13)) {
+            e.preventDefault();
+        }
+    });
+});
+</script>

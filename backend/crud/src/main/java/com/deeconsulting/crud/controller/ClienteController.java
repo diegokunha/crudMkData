@@ -2,6 +2,7 @@ package com.deeconsulting.crud.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,23 +43,34 @@ public class ClienteController {
 		return new ResponseEntity(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/detailNome/{nome}")
-	public ResponseEntity<Cliente> detailNome(@PathVariable("nome") String nome){
-		if(!service.existsByNome(nome)) {
+	@GetMapping("detailId/{id}")
+	public ResponseEntity<Cliente> detailById(@PathVariable("id") Long id){
+		if(!service.existsById(id)) {
             return new ResponseEntity(new Message("Cliente não encontrado!"), HttpStatus.NOT_FOUND);
 		}else {
-			Cliente cliente = service.getByNome(nome).get();
+			Cliente cliente = service.getById(id).get();
 			return new ResponseEntity(cliente, HttpStatus.OK);
 		}
 	}
 	
-	@GetMapping("/detailAtivo/{ativo}")
-	public ResponseEntity<Cliente> detailAtivo(@PathVariable("ativo") boolean ativo){
-		if(!service.existsByAtivo(ativo)) {
-            return new ResponseEntity(new Message("Não foi encontrado clientes nessa situação!"), HttpStatus.NOT_FOUND);
+	@GetMapping("/detailNome/{nome}")
+	public ResponseEntity<List<Cliente>> detailNome(@PathVariable("nome") String nome){
+		
+		if(!service.existsByNome(nome)) {
+            return new ResponseEntity(new Message("Cliente não encontrado!"), HttpStatus.NOT_FOUND);
 		}else {
-			Cliente cliente = service.getByAtivo(ativo).get();
-			return new ResponseEntity(cliente, HttpStatus.OK);
+			List<Cliente> clientes = service.getByNome(nome);
+			return new ResponseEntity(clientes, HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/detailAtivo/{ativo}")
+	public ResponseEntity<List<Cliente>> detailAtivo(@PathVariable("ativo") boolean ativo){
+		if(!service.existsByAtivo(ativo)) {
+            return new ResponseEntity(new Message("Não foi encontrado clientes com esse status!"), HttpStatus.NOT_FOUND);
+		}else {
+			List<Cliente> clientes = service.getByAtivo(ativo);
+			return new ResponseEntity(clientes, HttpStatus.OK);
 		}
 	}
 

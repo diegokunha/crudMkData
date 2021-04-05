@@ -10,8 +10,8 @@ export const ROUTES: Routes = [
     {path: '', component: HomeComponent},
     {path: 'lista', component: ListaComponent},
     {path: 'novo', component: NovoComponent},
-    {path: 'detail/:idCliente', component: DetalheComponent},
-    {path: 'edit/:idCliente', component: EditarComponent}
+    {path: 'detail/:id', component: DetalheComponent},
+    {path: 'edit/:id', component: EditarComponent}
 ]
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(ROUTES);

@@ -84,12 +84,12 @@ public class Cliente implements Serializable{
 		this.telefones = telefones;
 	}
 
-	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(tipo);
+	public Integer getTipo() {
+		return tipo;
 	}
 
-	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCodigo();
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 	
 }

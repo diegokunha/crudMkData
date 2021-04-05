@@ -12,10 +12,12 @@ import { ListaComponent } from './components/cliente/lista/lista.component';
 import { NovoComponent } from './components/cliente/novo/novo.component';
 import { ClienteService } from './services/cliente.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { DetalheComponent } from './components/cliente/detalhe/detalhe.component';
 import { EditarComponent } from './components/cliente/editar/editar.component';
 import { DialogService } from './dialog.service';
+import { CpfPipe } from './cpf.pipe';
+import { CnpjPipe } from './cnpj.pipe';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { DialogService } from './dialog.service';
     NovoComponent,
     DetalheComponent,
     EditarComponent,
+    CpfPipe,
+    CnpjPipe,
   ],
   imports: [
     HttpClientModule,

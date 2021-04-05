@@ -15,6 +15,8 @@ export class ListaComponent implements OnInit {
   cpf_cnpj:string;
   message:{};
   classCss:{};
+  nome: string = null;
+  ativo: boolean;
 
   constructor(
     private clienteService: ClienteService,
@@ -37,24 +39,72 @@ export class ListaComponent implements OnInit {
     );
   }
 
-  delete(id:number){
-    this.message = {};
-    this.clienteService.delete(id).subscribe(
-      data => {
-        this.showMessage({
-          type: 'success',
-          text: data.success.message
-        });
-        this.router.navigate(['/lista']);
-      },
-      err => {
-        this.showMessage({
-          type: 'error',
-          text: err.error.message
-        });
-      }
-    );   
+  edit(id:string){
+    this.router.navigate(['/edit',id]);
   }
+
+  filter(){
+    if(this.nome != null){
+      this.clienteService.detailName(this.nome).subscribe(
+        data => {
+          this.clientes = data;
+        },
+        err => {
+          this.showMessage({
+            type: 'error',
+            text: err.error.message
+          });
+        }
+      );
+    }
+
+    if(this.ativo != null){
+      this.clienteService.detailAtivo(this.ativo).subscribe(
+        data => {
+          this.clientes = data;
+        },
+        err => {
+          this.showMessage({
+            type: 'error',
+            text: err.error.message
+          });
+        }
+      );
+    }
+  }
+
+  cleanFilter(){
+    this.nome = null;
+    this.ativo = null;
+    this.findAllClientes();
+  }
+
+  detail(id:number){
+    this.router.navigate(['/detail',id]);
+  }
+
+  delete(id:number){
+    this.dialogService.confirm('Confirma a exclusão do cliente selecionado')
+      .then((candelete:boolean) => {
+          if(candelete){
+            this.message = {};
+            this.clienteService.delete(id).subscribe(
+              data => {
+                this.showMessage({
+                  type: 'success',
+                  text: `Cliente excluído com sucesso!`
+                });
+                this.findAllClientes();
+            } , err => {
+              this.showMessage({
+                type: 'error',
+                text: err['error']['errors'][0]
+              });
+            });
+          }
+      });
+  }
+    
 
   private showMessage(message: {type: string, text: string}): void {
     this.message = message;

@@ -1,3 +1,47 @@
-<p>
-  detalhe works!
-</p>
+<div style="margin: 0 auto; width: 50%;">
+  <form role="form" #form="ngForm" novalidate>
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Detalhe do cliente <b>{{cliente.nome}}</b></h3>
+      </div>    
+      <div class="box-body">
+        <ul class="list-group list-group-unbordered">
+          <li class="list-group-item">
+                <b>Status:</b> 
+                <span *ngIf="cliente.ativo == true"><span class="badge bg-light-blue">Ativo</span></span>
+                <span *ngIf="cliente.ativo == false"><span class="badge bg-red">Inativo</span></span>
+                <span class="pull-right">
+                  <b>Tipo:</b> 
+                  <span *ngIf="cliente.tipo == 1">Pessoa Física</span>
+                  <span *ngIf="cliente.tipo == 2">Pessoa Jurídica</span>
+                </span>
+          </li>
+          <li class="list-group-item" *ngIf="cliente.tipo == 1">
+            <b>CPF:</b> <span>{{cliente.cpf | cpf}}</span>
+            <span class="pull-right">
+              <b>RG:</b> <span>{{cliente.rg}}</span>
+            </span>
+          </li>
+          <li class="list-group-item" *ngIf="cliente.tipo == 2">
+              <b>CNPJ:</b> <span>{{cliente.cnpj  | cnpj}}</span>
+              <span class="pull-right">
+                <b>IE:</b> <span>{{cliente.ie}}</span>
+              </span>
+          </li>
+          <li class="list-group-item">
+            <b>Data de Inclusão:</b> <span>{{cliente.dataCriacao | date:'dd/MM/yyyy'}}</span>
+          </li>
+          <li class="list-group-item">
+            <b>Telefones :</b> <span>{{cliente.telefones}}</span>
+          </li>
+        </ul>     
+      </div>
+      <div class="box-footer">
+        <button type="submit" class="btn btn-default pull-left" [routerLink]="['/lista']">
+          <i class="fa fa-arrow-left"></i>
+          Voltar
+        </button>
+      </div>    
+    </div>
+  </form>
+</div>
