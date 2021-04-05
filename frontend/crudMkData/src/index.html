@@ -26,4 +26,35 @@
 <script src="assets/js/adminlte.js"></script>
 <script src="assets/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
 <script src="assets/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<script language="javascript">
+  var maximo = 20;
+  (function($) {
+      AddTableRow = function() {
+          var qtd = $("#contatos-table tbody tr").length;
+          if (qtd < maximo) {
+              var newRow = $("<tr>");
+              var cols = "";
+              cols += '<td><input class="campo-dinamico" name="telefone" [(ngModel)]="telefone" placeholder="Novo Contato" style="margin-top: 2%;" type="text"/></td>';
+              cols += '<td>';
+              cols += '<button class="btn btn-danger btn-xs" style="margin-left: 20%; margin-top: 20%;" onclick="RemoveTableRow(this)" type="button"><i class="fa fa-close"></i></button>';
+              cols += '</td>';
+              newRow.append(cols);
+              $("#contatos-table").append(newRow);
+              resetId();
+              return false;
+          }
+      };
+  })(jQuery);
+  (function($) {
+      RemoveTableRow = function(item) {
+          var tr = $(item).closest('tr');
+          tr.fadeOut(0, function() {
+              tr.remove();
+              resetId();
+          });
+          return false;
+      }
+  })(jQuery); //renova os ids dos campos dinâmicos
+</script>
 </html>

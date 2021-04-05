@@ -23,9 +23,10 @@ export class NovoComponent implements OnInit {
   tipo = 0;
   dataCriacao= null;
   ativo=false;
-  telefones=[];
+  telefones: string[] = [];
   message : {};
   classCss : {}; 
+  telefone:string;
   cliente: Cliente = null;
 
   constructor(
@@ -53,6 +54,10 @@ export class NovoComponent implements OnInit {
   onCreate(): void{
     this.message={};
     const cliente = new Cliente(this.idCliente, this.nome, this.cpf, this.rg, this.cnpj, this.ie, this.tipo, this.dataCriacao, this.ativo, this.telefones);
+    this.telefones.push(this.telefone);
+    console.log(this.telefones);
+    this.cliente.telefones = this.telefones;
+    console.log(this.cliente.telefones);
     this.clienteService.create(cliente).subscribe(
       data => {
         this.showMessage({

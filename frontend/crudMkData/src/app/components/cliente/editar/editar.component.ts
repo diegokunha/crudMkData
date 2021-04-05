@@ -15,6 +15,8 @@ export class EditarComponent implements OnInit {
   form: NgForm;
 
   cliente = new Cliente(null,'','','','','',null,null,null,[null]);
+  telefeones: string[] = [];
+  telefone:string;
   message:{};
   classCss: {};
 
@@ -69,10 +71,12 @@ export class EditarComponent implements OnInit {
     });
   }
 
-  
-
   onUpdate(): void{
     const id = this.activeRoute.snapshot.params.id;
+    this.telefeones.push(this.telefone);
+    console.log(this.telefeones);
+    this.cliente.telefones = this.telefeones;
+    console.log(this.cliente.telefones);
     this.clienteService.update(id, this.cliente).subscribe(
       data => {
         this.showMessage({
