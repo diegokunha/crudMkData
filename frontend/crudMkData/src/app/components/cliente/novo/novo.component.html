@@ -80,28 +80,21 @@
                    <span class="help-block" *ngIf="cnpj.invalid && cnpj.dirty">Nome é requerido</span>
           </div>
           <div class="form-group">
-            <table id="contatos-table">
-              <thead>
-                  <tr>
-                      <th>Contatos</th>
-                      <th></th>
-                  </tr>
-              </thead>
-              <tbody ng-repeat="telefone in telefones">
-                  <tr>
-                      <td><input class="form-group" type="text" name="telefone" [(ngModel)]="telefone" id="campo-1" class="campo-dinamico" placeholder="Contato" /></td>
-                      <td></td>
-                  </tr>
-              </tbody>
-              <tfoot>
-                  <tr>
-                      <td colspan="5" style="text-align: left;">
-                          <button style="margin-top: 2%;" class="btn btn-warning btn-sm" onclick="AddTableRow()" type="button">Adicionar Contato</button>
-                      </td>
-                  </tr>
-              </tfoot>
-            </table>
+            <label for="inputTelefone">Telefones</label>
+
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <input type="text" 
+                     [(ngModel)]="telefone" 
+                     class="form-control" 
+                     id="inputTelefone" 
+                     name="nome" 
+                     placeholder="Telefone">
+            </div>
           </div>
+          
           <div class="box-footer">
             <button type="submit" class="btn btn-default pull-left" [routerLink]="['/lista']">
               <i class="fa fa-arrow-left"></i>
